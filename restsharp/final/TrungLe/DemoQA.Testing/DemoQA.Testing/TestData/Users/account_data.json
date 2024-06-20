@@ -1,0 +1,14 @@
+﻿{
+  "createdUser": {
+    "name": "Trung",
+    "email": "ledoantrung1999@gmail.com",
+    "gender": "male",
+    "status": "active"
+  },
+  "updatedUser": {
+    "name": "TrungLe",
+    "email": "ledoantrung2020@gmail.com",
+    "gender": "female",
+    "status": "inactive"
+  }
+}
