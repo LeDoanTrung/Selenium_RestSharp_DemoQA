@@ -34,5 +34,15 @@ namespace DemoQA.Core.Extensions
         {
             response.StatusCode.Should().Be(HttpStatusCode.Created);
         }
+
+        public static void VerifyStatusCodeNoContent(this RestResponse response)
+        {
+            response.StatusCode.Should().Be(HttpStatusCode.NoContent);
+        }
+
+        public static void VerifyStatusCodeUnauthorized(this RestResponse response)
+        {
+            response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+        }
     }
 }

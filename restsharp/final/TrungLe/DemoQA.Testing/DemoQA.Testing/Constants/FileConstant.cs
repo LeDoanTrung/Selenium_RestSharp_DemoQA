@@ -12,6 +12,6 @@ namespace DemoQA.Testing.Constants
         public const string AccountFilePath = @"TestData\Users\account_data.json";
 
         //Schema
-        public const string UpdateUserSchemaPath = @"Resource\Schema\DemoQA_updateUser_schema.json";
+        public const string GetUserDetailSchemaPath = @"Resource\Schema\getUserDetail_schema.json";
     }
 }

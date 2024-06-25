@@ -5,6 +5,7 @@ using DemoQA.Core.Extensions;
 using DemoQA.Core.ExtentReport;
 using DemoQA.Core.ShareData;
 using DemoQA.Core.Util;
+using DemoQA.Service.DataObjects;
 using DemoQA.Service.Models.Request;
 using DemoQA.Service.Services;
 using DemoQA.Testing.Constants;
@@ -15,17 +16,13 @@ namespace DemoQA.Testing.Test
     [TestFixture]
     public class BaseTest
     {
-        protected Dictionary<string, CreateUserRequestDTO> AccountData;
-        protected Dictionary<string, UpdateUserRequestDTO> UpdatedAccountData;
+        protected Dictionary<string, AccountDTO> AccountData;
         protected static APIClient ApiClient;
-        protected UserService userService;
 
         public BaseTest()
         {
-            AccountData = JsonFileUtility.ReadAndParse<Dictionary<string, CreateUserRequestDTO>>(FileConstant.AccountFilePath.GetAbsolutePath());
-            UpdatedAccountData = JsonFileUtility.ReadAndParse<Dictionary<string, UpdateUserRequestDTO>>(FileConstant.AccountFilePath.GetAbsolutePath());
+            AccountData = JsonFileUtility.ReadAndParse<Dictionary<string, AccountDTO>>(FileConstant.AccountFilePath.GetAbsolutePath());
             ApiClient = new APIClient(ConfigurationHelper.GetConfigurationByKey(TestStartUp.Config,"application:url"));
-            userService = new UserService(ApiClient);
 
             //Create parent test report
             ExtentTestManager.CreateParentTest(TestContext.CurrentContext.Test.ClassName);

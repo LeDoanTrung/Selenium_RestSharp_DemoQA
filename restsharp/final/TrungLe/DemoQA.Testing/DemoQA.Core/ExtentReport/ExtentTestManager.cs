@@ -1,9 +1,5 @@
 ﻿using AventStack.ExtentReports;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace DemoQA.Core.ExtentReport
 {
@@ -28,5 +24,7 @@ namespace DemoQA.Core.ExtentReport
         {
             return _childTest.Value;
         }
+
+        
     }
 }
