@@ -35,7 +35,7 @@ namespace DemoQA.Service.Services
                    .AddHeader("accept", ContentType.Json)
                    .AddHeader("Content-Type", ContentType.Json)
                    .AddAuthorizationHeader(token)
-                   .AddBody(new DeleteBookRequestDTO
+                   .AddBody(new BookRequestDTO
                    {
                        Isbn = isbn,
                        UserId = userId
@@ -62,7 +62,7 @@ namespace DemoQA.Service.Services
                    }, ContentType.Json)
                    .ExecutePostAsync<AddBookResponseDTO>();
         }
-        public static void StoreDataToDeleteBook(string userId, string isbn, string token)
+        public void StoreDataToDeleteBook(string userId, string isbn, string token)
         {
             DataStorage.SetData("hasCreatedBook", true);
             DataStorage.SetData("userId", userId);
@@ -70,11 +70,11 @@ namespace DemoQA.Service.Services
             DataStorage.SetData("token", token);
         }
 
-        public static void DeleteCreatedBookFromStorage(BookService bookService)
+        public void DeleteCreatedBookFromStorage()
         {
             if ((Boolean)DataStorage.GetData("hasCreatedBook"))
             {
-                bookService.DeleteBookFromCollection(
+                this.DeleteBookFromCollection(
                 (string)DataStorage.GetData("userId"),
                 (string)DataStorage.GetData("isbn"),
                 (string)DataStorage.GetData("token")

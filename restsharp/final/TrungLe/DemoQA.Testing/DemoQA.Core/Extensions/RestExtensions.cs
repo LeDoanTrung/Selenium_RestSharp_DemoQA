@@ -44,5 +44,10 @@ namespace DemoQA.Core.Extensions
         {
             response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         }
+
+        public static void VerifyStatusCodeBadRequest(this RestResponse response)
+        {
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+        }
     }
 }

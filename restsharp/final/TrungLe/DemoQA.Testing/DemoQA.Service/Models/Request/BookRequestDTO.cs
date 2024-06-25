@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DemoQA.Service.Models.Request
 {
-    public class DeleteBookRequestDTO
+    public class BookRequestDTO
     {
         [JsonProperty("isbn")]
         public string Isbn { get; set; }
