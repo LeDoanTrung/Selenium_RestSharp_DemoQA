@@ -15,7 +15,7 @@ namespace DemoQA.Testing.Test.BookTest
     {
         private UserService _userService;
         private BookService _bookService;
-        private Dictionary<string, BookDTO> BookData = JsonFileUtility.ReadAndParse<Dictionary<string, BookDTO>>(FileConstant.BookFilePath.GetAbsolutePath());
+        
         public DeleteBookFromCollectionTest()
         {
             _userService = new UserService(ApiClient);
@@ -34,13 +34,13 @@ namespace DemoQA.Testing.Test.BookTest
             string token = _userService.GetToken(accountKey);
 
             ReportLog.Info("Clear book from collection");
-            await _bookService.DeleteBookFromCollection(account.Id, book.Isbn, token);
+            await _bookService.DeleteBookFromCollectionAsync(account.Id, book.Isbn, token);
 
             ReportLog.Info("Send request to add new book to collection");
-            await _bookService.AddBookToCollection(account.Id, book.Isbn, token);
+            await _bookService.AddBookToCollectionAsync(account.Id, book.Isbn, token);
 
             ReportLog.Info("Delete an esisting book from collection");
-            var response = await _bookService.DeleteBookFromCollection(account.Id, book.Isbn, token);
+            var response = await _bookService.DeleteBookFromCollectionAsync(account.Id, book.Isbn, token);
 
             ReportLog.Info("Verify status code");
             response.VerifyStatusCodeNoContent();
@@ -58,15 +58,15 @@ namespace DemoQA.Testing.Test.BookTest
             string token = _userService.GetToken(accountKey);
 
             ReportLog.Info("Clear book from collection");
-            await _bookService.DeleteBookFromCollection(account.Id, book.Isbn, token);
+            await _bookService.DeleteBookFromCollectionAsync(account.Id, book.Isbn, token);
 
             ReportLog.Info("Delete a non-existing book from collection");
-            var response = await _bookService.DeleteBookFromCollection(account.Id, book.Isbn, token);
+            var response = await _bookService.DeleteBookFromCollectionAsync(account.Id, book.Isbn, token);
 
             ReportLog.Info("Verify status code");
             response.VerifyStatusCodeBadRequest();
             var result = (dynamic)JsonConvert.DeserializeObject(response.Content);
-            ((string)result["message"]).Should().Be(MessageConstant.DeleteNonExistingBookMessage);
+            ((string)result["message"]).Should().Be(MessageConstant.NonExistingInUserCollectionMessage);
         }
     }
 }

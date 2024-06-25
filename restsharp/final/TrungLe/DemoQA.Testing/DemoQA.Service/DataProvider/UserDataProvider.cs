@@ -1,13 +1,12 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using Bogus;
+﻿using Bogus;
 using DemoQA.Service.Models.Request;
+using System.Text.RegularExpressions;
 
 namespace DemoQA.Service.DataProvider
 {
     public static class UserDataProvider
     {
-
+        
         public static string GenerateInvalidToken()
         {
             var faker = new Faker();

@@ -29,7 +29,7 @@ namespace DemoQA.Service.Services
                          .ExecuteDeleteAsync();
         }
 
-        public async Task<RestResponse> DeleteBookFromCollection(string userId, string isbn, string token)
+        public async Task<RestResponse> DeleteBookFromCollectionAsync(string userId, string isbn, string token)
         {
             return await _client.CreateRequest(APIConstant.DeleteBookEndPoint)
                    .AddHeader("accept", ContentType.Json)
@@ -43,7 +43,7 @@ namespace DemoQA.Service.Services
                    .ExecuteDeleteAsync();
         }
 
-        public async Task<RestResponse<AddBookResponseDTO>> AddBookToCollection (string userId, string isbn, string token)
+        public async Task<RestResponse<AddBookResponseDTO>> AddBookToCollectionAsync(string userId, string isbn, string token)
         {
             return await _client.CreateRequest(APIConstant.AddBookEndPoint)
                    .AddHeader("accept", ContentType.Json)
@@ -62,6 +62,22 @@ namespace DemoQA.Service.Services
                    }, ContentType.Json)
                    .ExecutePostAsync<AddBookResponseDTO>();
         }
+
+        public async Task<RestResponse<UserResponseDTO>> ReplaceBookFromCollectionAsync(string userId, string isbnReplaced, string isbnNew, string token)
+        {
+            string endpoint = String.Format(APIConstant.ReplaceBookEndPoint, isbnReplaced);
+            return await _client.CreateRequest(endpoint)
+                   .AddHeader("accept", ContentType.Json)
+                   .AddHeader("Content-Type", ContentType.Json)
+                   .AddAuthorizationHeader(token)
+                   .AddBody(new BookRequestDTO
+                   {
+                       Isbn = isbnNew,
+                       UserId = userId
+                   }, ContentType.Json)
+                   .ExecutePutAsync<UserResponseDTO>();
+        }
+
         public void StoreDataToDeleteBook(string userId, string isbn, string token)
         {
             DataStorage.SetData("hasCreatedBook", true);
@@ -74,7 +90,7 @@ namespace DemoQA.Service.Services
         {
             if ((Boolean)DataStorage.GetData("hasCreatedBook"))
             {
-                this.DeleteBookFromCollection(
+                this.DeleteBookFromCollectionAsync(
                 (string)DataStorage.GetData("userId"),
                 (string)DataStorage.GetData("isbn"),
                 (string)DataStorage.GetData("token")

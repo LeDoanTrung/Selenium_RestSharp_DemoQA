@@ -17,11 +17,13 @@ namespace DemoQA.Testing.Test
     public class BaseTest
     {
         protected Dictionary<string, AccountDTO> AccountData;
+        protected Dictionary<string, BookDTO> BookData;
         protected static APIClient ApiClient;
 
         public BaseTest()
         {
             AccountData = JsonFileUtility.ReadAndParse<Dictionary<string, AccountDTO>>(FileConstant.AccountFilePath.GetAbsolutePath());
+            BookData = JsonFileUtility.ReadAndParse<Dictionary<string, BookDTO>>(FileConstant.BookFilePath.GetAbsolutePath());
             ApiClient = new APIClient(ConfigurationHelper.GetConfigurationByKey(TestStartUp.Config,"application:url"));
 
             //Create parent test report

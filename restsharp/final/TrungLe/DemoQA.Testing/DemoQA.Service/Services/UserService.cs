@@ -27,6 +27,7 @@ namespace DemoQA.Service.Services
                    .AddAuthorizationHeader(token)
                    .ExecuteGetAsync<UserResponseDTO>();
         }
+
         public async Task<RestResponse> GenerateTokenAsync(string username, string password)
         {
             return await _client.CreateRequest(APIConstant.GenerateTokenEndPoint)
