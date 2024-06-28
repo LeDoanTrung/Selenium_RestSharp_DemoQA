@@ -20,34 +20,24 @@ namespace DemoQA.Core.ExtentReport
                 Directory.CreateDirectory(reportPath);
             }
 
-            // Ensure config file exists
-            string configPath = Path.Combine(projectPath, "ExtentReportConfig.xml");
-            EnsureConfigFileExists(configPath);
-
             // Config html Reporter
-            var htmlReporter = new ExtentHtmlReporter(Path.Combine(reportPath,"index.html"));
-            htmlReporter.LoadConfig(configPath);
+            var htmlReporter = CreateHtmlReporter(reportPath);
             Instance.AttachReporter(htmlReporter);
         }
 
-        private static void EnsureConfigFileExists(string configPath)
+        private static ExtentHtmlReporter CreateHtmlReporter(string reportPath)
         {
-            if (!File.Exists(configPath))
-            {
-                var xmlContent = @"
-                <configuration>
-                    <html>
-                        <reportName>Test Automation Report</reportName>
-                        <encoding>UTF-8</encoding>
-                        <title>Test Automation Report</title>
-                        <theme>standard</theme>
-                        <protocol>https</protocol>
-                        <autoCreateRelativePathMedia>true</autoCreateRelativePathMedia>
-                    </html>
-                </configuration>";
-                File.WriteAllText(configPath, xmlContent);
-            }
+            var htmlReporter = new ExtentHtmlReporter(Path.Combine(reportPath, "index.html"));
+
+            // Setting the configuration directly in code
+            htmlReporter.Config.ReportName = "Test Automation Report";
+            htmlReporter.Config.Encoding = "UTF-8";
+            htmlReporter.Config.DocumentTitle = "Test Automation Report";
+            htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Standard;
+
+            return htmlReporter;
         }
+
 
         public static void GenerateReport()
         {

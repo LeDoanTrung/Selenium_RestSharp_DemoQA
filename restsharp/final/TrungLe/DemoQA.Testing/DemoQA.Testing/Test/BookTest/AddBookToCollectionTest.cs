@@ -11,12 +11,14 @@ using Newtonsoft.Json;
 namespace DemoQA.Testing.Test.BookTest
 {
     [TestFixture, Category("AddBookToCollection")]
+    [Parallelizable(ParallelScope.Fixtures)]
     public class AddBookToCollectionTest : BaseTest
     {
         private UserService _userService;
         private BookService _bookService;
 
-        public AddBookToCollectionTest()
+        [SetUp]
+        public void SetUp()
         {
             _userService = new UserService(ApiClient);
             _bookService = new BookService(ApiClient);

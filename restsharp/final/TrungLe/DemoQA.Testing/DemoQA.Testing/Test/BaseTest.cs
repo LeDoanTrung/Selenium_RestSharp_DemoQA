@@ -9,17 +9,18 @@ using DemoQA.Service.DataObjects;
 using DemoQA.Service.Models.Request;
 using DemoQA.Service.Services;
 using DemoQA.Testing.Constants;
+using Newtonsoft.Json;
 using NUnit.Framework.Interfaces;
 
 namespace DemoQA.Testing.Test
 {
     [TestFixture]
+    [Parallelizable(ParallelScope.Fixtures)]
     public class BaseTest
     {
         protected Dictionary<string, AccountDTO> AccountData;
         protected Dictionary<string, BookDTO> BookData;
         protected static APIClient ApiClient;
-
         public BaseTest()
         {
             AccountData = JsonFileUtility.ReadAndParse<Dictionary<string, AccountDTO>>(FileConstant.AccountFilePath.GetAbsolutePath());
@@ -34,6 +35,7 @@ namespace DemoQA.Testing.Test
         public void Setup()
         {
             ExtentTestManager.CreateTest(TestContext.CurrentContext.Test.Name);
+            DataStorage.InitData();
             Console.WriteLine("Base Test Set up");
         }
 
@@ -41,34 +43,10 @@ namespace DemoQA.Testing.Test
         [TearDown]
         public void TearDown()
         {
-            UpdateTestReport();
+            ExtentTestManager.UpdateTestReport();
             DataStorage.ClearData();
             Console.WriteLine("Base Test Tear Down");
         }
 
-        public void UpdateTestReport()
-        {
-            var status = TestContext.CurrentContext.Result.Outcome.Status;
-            var stacktrace = string.IsNullOrEmpty(TestContext.CurrentContext.Result.StackTrace) ? "" : TestContext.CurrentContext.Result.StackTrace;
-            var message = TestContext.CurrentContext.Result.Message;
-
-            switch (status)
-            {
-                case TestStatus.Failed:
-                    ReportLog.Fail($"Test failed with message: {message}");
-                    ReportLog.Fail($"Stacktrace: {stacktrace}");
-                    break;
-                case TestStatus.Inconclusive:
-                    ReportLog.Skip($"Test inconclusive with message: {message}");
-                    ReportLog.Skip($"Stacktrace: {stacktrace}");
-                    break;
-                case TestStatus.Skipped:
-                    ReportLog.Skip($"Test skipped with message: {message}");
-                    break;
-                default:
-                    ReportLog.Pass("Test passed");
-                    break;
-            }
-        }
     }
 }

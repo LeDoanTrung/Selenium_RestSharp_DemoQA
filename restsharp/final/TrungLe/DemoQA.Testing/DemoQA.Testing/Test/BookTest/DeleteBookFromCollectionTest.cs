@@ -11,12 +11,14 @@ using Newtonsoft.Json;
 namespace DemoQA.Testing.Test.BookTest
 {
     [TestFixture, Category("DeleteBookFromCollection")]
+    [Parallelizable(ParallelScope.Fixtures)]
     public class DeleteBookFromCollectionTest : BaseTest
     {
         private UserService _userService;
         private BookService _bookService;
-        
-        public DeleteBookFromCollectionTest()
+
+        [SetUp]
+        public void SetUp()
         {
             _userService = new UserService(ApiClient);
             _bookService = new BookService(ApiClient);
@@ -48,7 +50,7 @@ namespace DemoQA.Testing.Test.BookTest
 
         [Test]
         [TestCase("user_1", "book_1")]
-        public async Task DeleteNonExistingBookFromCollectionSuccessfully(string accountKey, string bookKey)
+        public async Task DeleteNonExistingBookFromCollectionUnsuccessfully(string accountKey, string bookKey)
         {
             AccountDTO account = AccountData[accountKey];
             BookDTO book = BookData[bookKey];

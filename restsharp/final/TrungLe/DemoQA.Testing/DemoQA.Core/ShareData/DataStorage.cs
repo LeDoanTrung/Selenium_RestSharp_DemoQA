@@ -18,23 +18,27 @@ namespace DemoQA.Core.ShareData
 
         public static void SetData(string key, object value)
         {
+            EnsureInitialized();
             _data.Value[key] = value;
         }
 
         public static object GetData(string key)
         {
-            if (_data.Value.ContainsKey(key) is false)
-            {
-                return null;
-            }
-            return _data.Value.GetValueOrDefault(key);
+            EnsureInitialized();
+            return _data.Value.TryGetValue(key, out var value) ? value : null;
         }
 
         public static void ClearData()
         {
-            if(_data.Value is not null)
+            EnsureInitialized();
+            _data.Value.Clear();
+        }
+
+        private static void EnsureInitialized()
+        {
+            if (_data.Value == null)
             {
-                _data.Value.Clear();
+                _data.Value = new Dictionary<string, object>();
             }
         }
     }

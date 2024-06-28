@@ -8,6 +8,7 @@ using RestSharp;
 using Newtonsoft.Json;
 
 
+
 namespace DemoQA.Service.Services
 {
     public class UserService
@@ -86,7 +87,6 @@ namespace DemoQA.Service.Services
 
             return (string)DataStorage.GetData(accountKey);
         }
-
 
     }
 }

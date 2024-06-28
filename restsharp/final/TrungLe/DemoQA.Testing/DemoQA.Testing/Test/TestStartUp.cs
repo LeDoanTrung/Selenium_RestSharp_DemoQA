@@ -27,7 +27,6 @@ namespace DemoQA.Testing.Test
             // Read Configuration file
             Config = ConfigurationHelper.ReadConfiguration(AppSettingPath);
 
-            DataStorage.InitData();
         }
 
         [OneTimeTearDown]

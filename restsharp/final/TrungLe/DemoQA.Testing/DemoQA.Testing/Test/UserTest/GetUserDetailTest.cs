@@ -10,11 +10,14 @@ using Newtonsoft.Json;
 namespace DemoQA.Testing.Test.UserTest
 {
     [TestFixture, Category("GetUserDetail")]
+    [Parallelizable(ParallelScope.Fixtures)]
     public class GetUserDetailTest : BaseTest
     {
         private UserService _userService;
         private BookService _bookService;
-        public GetUserDetailTest()
+
+        [SetUp]
+        public void SetUp()
         {
             _userService = new UserService(ApiClient);
             _bookService = new BookService(ApiClient);
