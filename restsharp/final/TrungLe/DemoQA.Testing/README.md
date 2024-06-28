@@ -38,19 +38,18 @@ You can also use Visual Code for this project, but you need to install .NET 5 SD
 ## Configuration Files
 
 - The `appsetting.json` file is the main config file of this project, it allows you to configure the application URL:
-```json
 {
   "application": {
     "url": "https://demoqa.com"
   }
 }
+
 This JSON file specifies the url key under the application section, which configures the base URL for the application under test. Adjust this URL as needed to match your specific testing environment or deployment setup.
 
 - The `extent-config.xml` file is the config file of the ExtentReports library, it allows you to customize the report template like title, theme, etc.
 
 ## Test Data
 ### account_data.json (Located in TestData folder):
----json
 {
   "test_user": {
     "userName": "Trung Le",
