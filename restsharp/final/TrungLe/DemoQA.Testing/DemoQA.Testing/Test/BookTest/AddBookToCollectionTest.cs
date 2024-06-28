@@ -25,7 +25,7 @@ namespace DemoQA.Testing.Test.BookTest
         }
 
         [Test]
-        [TestCase("user_1", "book_1")]
+        [TestCase("test_user", "git_book")]
         public async Task AddBookToCollectionSuccessfully(string accountKey, string bookKey)
         {
             AccountDTO account = AccountData[accountKey];
@@ -52,7 +52,7 @@ namespace DemoQA.Testing.Test.BookTest
         }
 
         [Test]
-        [TestCase("user_1", "book_1")]
+        [TestCase("test_user", "git_book")]
         public async Task AddDuplicatedBookToCollectionUnsuccessfully(string accountKey, string bookKey)
         {
             AccountDTO account = AccountData[accountKey];

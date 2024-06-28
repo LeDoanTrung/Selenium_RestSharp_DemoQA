@@ -1,8 +1,8 @@
 ﻿{
-  "book_1": {
+  "git_book": {
     "isbn": "9781449325862"
   },
-  "book_2": {
+  "javascript_book": {
     "isbn": "9781449337711"
   }
 }

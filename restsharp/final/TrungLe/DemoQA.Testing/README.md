@@ -50,7 +50,7 @@ This JSON file specifies the url key under the application section, which config
 ## Test Data
 - account_data.json (Located in TestData folder):
 {
-  "user_1": {
+  "test_user": {
     "userName": "Trung Le",
     "password": "",
     "id": "254dc275-3022-4d61-8ccf-115c6cef3777"

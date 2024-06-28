@@ -24,7 +24,7 @@ namespace DemoQA.Testing.Test.UserTest
         }
 
         [Test]
-        [TestCase("user_1")]
+        [TestCase("test_user")]
         public async Task GetUserDetailSuccessfullyWithValidData(string accountKey)
         {
             AccountDTO account = AccountData[accountKey];
@@ -47,7 +47,7 @@ namespace DemoQA.Testing.Test.UserTest
         }
 
         [Test]
-        [TestCase("user_1")]
+        [TestCase("test_user")]
         public async Task GetUserDetailUnsuccessfullyWithInvalidToken(string accountKey)
         {
             AccountDTO account = AccountData[accountKey];
